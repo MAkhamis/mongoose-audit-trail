@@ -55,7 +55,7 @@
     "chai": "^3.5.0",
     "istanbul": "^0.4.5",
     "mocha": "^2.5.3",
-    "mongoose": "^4.13.9"
+    "mongoose": "^5.9.5"
   },
   "directories": {
     "test": "tests"
