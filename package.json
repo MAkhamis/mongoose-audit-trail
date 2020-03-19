@@ -69,5 +69,5 @@
   "scripts": {
     "test": "istanbul cover --report lcov  _mocha tests --recursive"
   },
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
