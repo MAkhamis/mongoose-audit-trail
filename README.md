@@ -2,6 +2,9 @@ mongoose-audit-trail
 
 =============
 we added the support of findOneAndUpdate() to npm pacakge mongoose-diff-history
+
+---
+
 Stores and Manages all the differences and versions, any Mongo collection goes through it's lifecycle.
 
 ## Installation
@@ -11,7 +14,7 @@ Stores and Manages all the differences and versions, any Mongo collection goes t
 ### npm
 
 ```sh
-npm install mongoose-diff-history
+npm install mongoose-audit-trail
 ```
 
 ## Operation
