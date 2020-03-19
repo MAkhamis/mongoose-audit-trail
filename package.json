@@ -1,16 +1,14 @@
 {
-  "_from": "mongoose-diff-history",
-  "_id": "mongoose-diff-history@1.6.1",
+  "_from": "mongoose-audit-trail",
+  "_id": "mongoose-audit-trail@2.0.0",
   "_inBundle": false,
-  "_integrity": "sha512-CuyITLvmrU8sh8vsgL1bVsZN9LPLUxR6elH9K0A4oe08doR5B2bK2F7yc35f+C5ORzRL8VpkrS/2wg6gEOADfg==",
-  "_location": "/mongoose-diff-history",
   "_phantomChildren": {},
   "_requested": {
     "type": "tag",
     "registry": true,
-    "raw": "mongoose-diff-history",
-    "name": "mongoose-diff-history",
-    "escapedName": "mongoose-diff-history",
+    "raw": "mongoose-audit-trail",
+    "name": "mongoose-audit-trail",
+    "escapedName": "mongoose-audit-trail",
     "rawSpec": "",
     "saveSpec": null,
     "fetchSpec": "latest"
@@ -19,26 +17,15 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/mongoose-diff-history/-/mongoose-diff-history-1.6.1.tgz",
-  "_shasum": "442ee8c8472b065bac3819e33cdf92383da4288f",
-  "_spec": "mongoose-diff-history",
-  "_where": "C:\\projects\\repzo-sales-van",
+  "_spec": "mongoose-audit-trail",
   "bugs": {
-    "url": "https://github.com/mimani/mongoose-diff-history/issues"
+    "url": "https://github.com/MAkhamis/mongoose-audit-trail"
   },
   "bundleDependencies": false,
   "contributors": [
     {
-      "name": "Saurabh Mimani",
-      "email": "mimani.saurabh@gmail.com"
-    },
-    {
-      "name": "Amith Prasad",
-      "email": "send2amith@gmail.com"
-    },
-    {
-      "name": "Zachary Rollyson",
-      "email": "me@zjr.io"
+      "name": "Mohammad Khamis",
+      "email": "m@khamis.info"
     }
   ],
   "dependencies": {
@@ -63,7 +50,7 @@
   "engines": {
     "node": "*"
   },
-  "homepage": "https://github.com/mimani/mongoose-diff-history#readme",
+  "homepage": "https://github.com/MAkhamis/mongoose-audit-trail#readme",
   "keywords": [
     "mongoose",
     "audit",
@@ -73,14 +60,14 @@
     "versioning"
   ],
   "license": "GPL-2.0",
-  "main": "diffHistoryModel.js",
-  "name": "mongoose-diff-history",
+  "main": "auditModel.js",
+  "name": "mongoose-audit-trail",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mimani/mongoose-diff-history.git"
+    "url": "git+https://github.com/MAkhamis/mongoose-audit-trail.git"
   },
   "scripts": {
     "test": "istanbul cover --report lcov  _mocha tests --recursive"
   },
-  "version": "1.6.1"
+  "version": "2.0.0"
 }
