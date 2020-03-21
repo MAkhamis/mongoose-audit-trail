@@ -241,7 +241,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
   }
 
   schema.pre("save", function(next) {
-    if (this.isNew) return next();
+    // if (this.isNew) return next();
     this.constructor
       .findOne({ _id: this._id })
       .then(original => {
@@ -250,7 +250,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
         }
         return saveDiffObject(
           this,
-          original,
+          original ? original : {},
           this.toObject({ depopulate: true }),
           opts
         );
