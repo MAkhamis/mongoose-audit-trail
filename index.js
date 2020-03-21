@@ -31,7 +31,14 @@ function checkRequired(opts, queryObject, updatedObject) {
   }
 }
 
-function saveDiffObject(currentObject, original, updated, opts, queryObject) {
+function saveDiffObject(
+  currentObject,
+  original,
+  updated,
+  opts,
+  queryObject,
+  method
+) {
   const { __user: user, __reason: reason, __session: session } =
     (queryObject && queryObject.options) || currentObject;
 
@@ -62,6 +69,7 @@ function saveDiffObject(currentObject, original, updated, opts, queryObject) {
       const history = new History({
         collectionId,
         collectionName,
+        method,
         diff,
         user,
         reason,
@@ -75,7 +83,7 @@ function saveDiffObject(currentObject, original, updated, opts, queryObject) {
 }
 /* eslint-disable complexity */
 
-const saveDiffHistory = (queryObject, currentObject, opts) => {
+const saveDiffHistory = (queryObject, currentObject, opts, method) => {
   const update = JSON.parse(JSON.stringify(queryObject._update));
   /* eslint-disable security/detect-object-injection */
   const updateParams = Object.assign(
@@ -97,16 +105,17 @@ const saveDiffHistory = (queryObject, currentObject, opts) => {
     dbObject,
     assign(dbObject, queryObject._update),
     opts,
-    queryObject
+    queryObject,
+    method
   );
 };
 
-const saveDiffs = (queryObject, opts) =>
+const saveDiffs = (queryObject, opts, method) =>
   queryObject
     .find(queryObject._conditions)
     .lean(false)
     .cursor()
-    .eachAsync(result => saveDiffHistory(queryObject, result, opts));
+    .eachAsync(result => saveDiffHistory(queryObject, result, opts, method));
 
 const getVersion = (model, id, version, queryOpts, cb) => {
   if (typeof queryOpts === "function") {
@@ -241,7 +250,8 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
   }
 
   schema.pre("save", function(next) {
-    // if (this.isNew) return next();
+    var method;
+    this.isNew ? (method = "create") : (method = "update");
     this.constructor
       .findOne({ _id: this._id })
       .then(original => {
@@ -252,7 +262,9 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
           this,
           original ? original : {},
           this.toObject({ depopulate: true }),
-          opts
+          opts,
+          null,
+          method
         );
       })
       .then(() => next())
@@ -263,7 +275,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
     if (checkRequired(opts, this)) {
       return next();
     }
-    saveDiffs(this, opts)
+    saveDiffs(this, opts, "update")
       .then(() => next())
       .catch(next);
   });
@@ -272,7 +284,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
     if (checkRequired(opts, this)) {
       return next();
     }
-    saveDiffs(this, opts)
+    saveDiffs(this, opts, "update")
       .then(() => next())
       .catch(next);
   });
@@ -281,7 +293,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
     if (checkRequired(opts, this)) {
       return next();
     }
-    saveDiffs(this, opts)
+    saveDiffs(this, opts, "update")
       .then(() => next())
       .catch(next);
   });
@@ -290,7 +302,7 @@ const plugin = function lastModifiedPlugin(schema, opts = {}) {
     if (checkRequired(opts, this)) {
       return next();
     }
-    saveDiffObject(this, this, {}, opts)
+    saveDiffObject(this, this, {}, opts, null, "remove")
       .then(() => next())
       .catch(next);
   });
